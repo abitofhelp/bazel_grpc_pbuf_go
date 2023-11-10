@@ -6,13 +6,6 @@ BZCMD=bazel
 
 .PHONY:baz_build_all baz_clean baz_go_command baz_list baz_run_client baz_tidy
 
-baz_tidy: baz_clean
-	@rm proto/abitofhelp/api/blob/v5/BUILD.bazel \
-        proto/abitofhelp/enum/v5/BUILD.bazel
-
-#baz_build_enum_lib:
-#	@$(BZCMD) build //src/go/gen/abitofhelp/enum/v5:enum --sandbox_debug --verbose_failures
-
 baz_go_mod_tidy:
 	@$(BZCMD) run go -- mod tidy
 
@@ -25,8 +18,8 @@ baz_build_client:
 baz_build_server:
 	@$(BZCMD) build --sandbox_debug --verbose_failures //cmd/server:server
 
-baz_build_all:
-	@$(BZCMD) build //... #$(BZCMD) build //src/client:client
+baz_build_all: baz_build_proto baz_build_server baz_run_client
+	echo "DONE"
 
 baz_run_client:
 	@$(BZCMD) run --sandbox_debug --verbose_failures //cmd/client:client
