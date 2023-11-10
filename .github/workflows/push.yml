@@ -1,15 +1,17 @@
-## build.yml
+## push.yml
 
-name: Build
-on: [ pull_request ]
+on: push
+permissions:
+  contents: write
+  packages: write
 
 jobs:
   build:
     runs-on: ubuntu-latest
-
+    if: ${{ !contains(github.ref, '/tags/v') }}
     steps:
       - name: Checkout Sources
-        uses: actions/checkout@v4
+        uses: actions/checkout@v4.1.1
 
       - name: Configure Bazel Build
         uses: bazelbuild/setup-bazelisk@v2
