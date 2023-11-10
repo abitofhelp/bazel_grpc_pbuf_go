@@ -1,0 +1,18 @@
+## BUILD.bazel
+
+load("@bazel_gazelle//:def.bzl", "gazelle")
+
+## The Gazelle directive should not be necessary if you are using go.mod.
+# gazelle:prefix github.com/abitofhelp/bazel/easyproto2
+gazelle(name = "gazelle")
+
+gazelle(
+    name = "gazelle-update-repos",
+    args = [
+        "-from_file=go.mod",
+        "-build_file_proto_mode=package",
+        "-to_macro=go_deps.bzl%go_deps",
+        "-prune",
+    ],
+    command = "update-repos",
+)

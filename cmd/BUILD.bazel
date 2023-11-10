@@ -1,0 +1,8 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "cmd",
+    srcs = ["constants.go"],
+    importpath = "github.com/abitofhelp/bazel/easyproto2/cmd",
+    visibility = ["//visibility:public"],
+)
