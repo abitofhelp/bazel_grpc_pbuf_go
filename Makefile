@@ -2,7 +2,7 @@
 
 PROJECT_DIR=$GOPATH/src/github.com/bazel/bazel_grpc_pbuf_go
 PROTO_DIR=$(PROJECT_DIR)/proto
-BZCMD=bazel
+BZCMD=bazel7
 
 .PHONY:build_all build_client build_proto build_server clean generate_repos go_mod_tidy list run_client run_server test update_repos
 
