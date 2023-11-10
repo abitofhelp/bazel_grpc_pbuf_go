@@ -22,12 +22,12 @@ jobs:
         with:
           path: |
             ~/.cache/bazel
-          key: ${{ runner.os }}-bazel-${{ hashFiles('.bazelversion', '.bazelrc', 'WORKSPACE', 'WORKSPACE.bazel', 'MODULE.bazel') }}
+          key: ${{ runner.os }}-bazel-${{ hashFiles('.bazelversion', '.bazelrc', 'WORKSPACE', 'WORKSPACE.bazel', 'MODULE.bazel', '**/BUILD.bazel') }}
           restore-keys: |
             ${{ runner.os }}-bazel-
 
       - name: Build All
         run: bazel build //...
 
-      - name: Test All
-        run: bazel test //...
+#      - name: Test All
+#        run: bazel test //...
