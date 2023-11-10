@@ -23,11 +23,20 @@ clean:
 	$(BZLCMD) clean --expunge --async
 
 # This will generate new BUILD.bazel files for your project. You can run the same command in the future to update existing BUILD.bazel files to include new source files or options.
-generate_repos:
 	$(BZLCMD) run $(BAZEL_BUILD_OPTS) //:gazelle
 
 go_mod_tidy:
-	@$(BZLCMD) run @io_bazel_rules_go//go -- mod tidy
+	# Assumes GO111MODULE=on
+	$(BZLCMD) run @io_bazel_rules_go//go -- mod tidy
+
+go_mod_vendor:
+	rm -rf vendor
+	# Assumes GO111MODULE=on
+	$(BZLCMD) run @io_bazel_rules_go//go -- mod vendor -v
+
+go_mod_verify:
+	# Assumes GO111MODULE=on
+	$(BZLCMD) run @io_bazel_rules_go//go -- mod verify
 
 list:
 	$(BZLCMD) query //...
@@ -41,15 +50,17 @@ run_server:
 test:
 	$(BZLCMD) test --test_output=all //...
 
-#
-update_repos:
+update_repos: go_mod_verify go_mod_tidy
 	# Update go modules (source of truth!).
-	GO111MODULE=on go mod verify
-	GO111MODULE=on go mod tidy
+#	GO111MODULE=on go mod verify
+#	GO111MODULE=on go mod tidy
 
 	# Import repositories from go.mod and update Bazel's macro and rules.
 	$(BZLCMD) run $(BAZEL_BUILD_OPTS) //:gazelle -- update-repos -from_file=go.mod -to_macro=repositories.bzl%go_repositories
 
-	# Fixup vendor folder to make golangci-lint happy.
+	# Update the vendor folder so linting won't complain.
+#	GO111MODULE=on go mod vendor -v
+	go_mod_vendor
 	rm -rf vendor
-	GO111MODULE=on go mod vendor -v
+
+
