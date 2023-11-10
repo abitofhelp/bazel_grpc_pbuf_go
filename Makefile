@@ -4,7 +4,7 @@ PROJECT_DIR=$GOPATH/src/github.com/bazel/bazel_grpc_pbuf_go
 PROTO_DIR=$(PROJECT_DIR)/proto
 BZCMD=bazel
 
-.PHONY:build_all clean go_command list run_client tidy
+.PHONY:build_all build_client build_proto build_server clean generate_repos go_mod_tidy list run_client run_server test update_repos
 
 build_all: build_proto build_server run_client
 	echo "DONE"
