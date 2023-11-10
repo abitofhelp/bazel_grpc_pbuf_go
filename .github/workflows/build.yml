@@ -26,5 +26,5 @@ jobs:
       - name: Build All
         run: bazel build //...
 
-      - name: Test Akk
+      - name: Test All
         run: bazel test //...p --embed_label=${{ github.ref_name }} //envoy:push_image
