@@ -1,4 +1,4 @@
-module github.com/abitofhelp/bazel/bazel_grpc_pbuf_go
+module github.com/abitofhelp/bazel_grpc_pbuf_go
 
 go 1.21
 

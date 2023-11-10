@@ -1,43 +1,55 @@
 # Makefile
 
-PROJECT_DIR=$GOPATH/src/github.com/bazel/bazel_grpc_pbuf_go
+PROJECT_DIR=$GOPATH/src/github.com/bazel_grpc_pbuf_go
 PROTO_DIR=$(PROJECT_DIR)/proto
-BZCMD=bazel
+BZLCMD=bazel
+BAZEL_BUILD_OPTS:=--verbose_failures --sandbox_debug
 
 .PHONY:build_all build_client build_proto build_server clean generate_repos go_mod_tidy list run_client run_server test update_repos
 
 build_all:
-	@$(BZCMD) build --verbose_failures //...
+	$(BZLCMD) build $(BAZEL_BUILD_OPTS) //...
 
 build_client:
-	@$(BZCMD) build --verbose_failures //cmd/client:client
+	$(BZLCMD) build $(BAZEL_BUILD_OPTS) //cmd/client:client
 
 build_proto:
-	@$(BZCMD) build --verbose_failures //proto/helloworld/v1:helloworld_v1_go
+	$(BZLCMD) build $(BAZEL_BUILD_OPTS) //proto/helloworld/v1:helloworld_v1_go
 
 build_server:
-	@$(BZCMD) build --verbose_failures //cmd/server:server
+	$(BZLCMD) build $(BAZEL_BUILD_OPTS) //cmd/server:server
 
 clean:
-	@$(BZCMD) clean --expunge --async
+	$(BZLCMD) clean --expunge --async
 
+# This will generate new BUILD.bazel files for your project. You can run the same command in the future to update existing BUILD.bazel files to include new source files or options.
 generate_repos:
-	@$(BZCMD) run //:gazelle
+	$(BZLCMD) run $(BAZEL_BUILD_OPTS) //:gazelle
 
 go_mod_tidy:
-	@$(BZCMD) run @io_bazel_rules_go//go -- mod tidy
+	@$(BZLCMD) run @io_bazel_rules_go//go -- mod tidy
 
 list:
-	@$(BZCMD) query //...
+	$(BZLCMD) query //...
 
 run_client:
-	@$(BZCMD) run --sandbox_debug --verbose_failures //cmd/client:client
+	$(BZLCMD) run $(BAZEL_BUILD_OPTS) //cmd/client:client
 
 run_server:
-	@$(BZCMD) run --sandbox_debug --verbose_failures //cmd/server:server
+	$(BZLCMD) run $(BAZEL_BUILD_OPTS) //cmd/server:server
 
 test:
-	@$(BZCMD) test //...
+	$(BZLCMD) test --test_output=all //...
 
+#
 update_repos:
-	@$(BZCMD) run //:gazelle-update-repos -- -from_file=go.mod -to_macro=deps.bzl%go_dependencies -prune
+	# Update go modules (source of truth!).
+	GO111MODULE=on go mod verify
+	GO111MODULE=on go mod tidy
+
+	# Import repositories from go.mod and update Bazel's macro and rules.
+	$(BZLCMD) run $(BAZEL_BUILD_OPTS) //:gazelle -- update-repos -from_file=go.mod -to_macro=repositories.bzl%go_repositories
+
+	# Fixup vendor folder to make golangci-lint happy.
+	rm -rf vendor
+	GO111MODULE=on go mod vendor -v

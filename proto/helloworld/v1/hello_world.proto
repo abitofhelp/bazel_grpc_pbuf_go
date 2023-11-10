@@ -7,7 +7,7 @@ package helloworld.v1;
 import "google/api/annotations.proto";
 import "google/protobuf/timestamp.proto";
 
-option go_package = "github.com/abitofhelp/bazel/bazel_grpc_pbuf_go";
+option go_package = "github.com/abitofhelp/bazel_grpc_pbuf_go";
 
 // Greeter Service
 service Greeter {

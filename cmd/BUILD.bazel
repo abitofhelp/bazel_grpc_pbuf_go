@@ -3,6 +3,6 @@ load("@io_bazel_rules_go//go:def.bzl", "go_library")
 go_library(
     name = "cmd",
     srcs = ["constants.go"],
-    importpath = "github.com/abitofhelp/bazel/bazel_grpc_pbuf_go/cmd",
+    importpath = "github.com/abitofhelp/bazel_grpc_pbuf_go/cmd",
     visibility = ["//visibility:public"],
 )
