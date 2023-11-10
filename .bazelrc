@@ -22,9 +22,6 @@ test:stress --notest_keep_going
 # Use Rust's nightly toolchain
 #build --@rules_rust//rust/toolchain/channel=nightly
 
-# Enable Bzlmod for every Bazel command
-#common --enable_bzlmod
-
 # Set the C++ standard toolchain
 build --cxxopt=-std=c++14
 build --host_cxxopt=-std=c++14

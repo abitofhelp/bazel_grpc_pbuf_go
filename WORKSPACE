@@ -3,67 +3,89 @@
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 
 ## RULES_GO ############################################################################################################
-http_archive(
-    name = "io_bazel_rules_go",
-    sha256 = "91585017debb61982f7054c9688857a2ad1fd823fc3f9cb05048b0025c47d023",
-    urls = [
-        "https://mirror.bazel.build/github.com/bazelbuild/rules_go/releases/download/v0.42.0/rules_go-v0.42.0.zip",
-        "https://github.com/bazelbuild/rules_go/releases/download/v0.42.0/rules_go-v0.42.0.zip",
-    ],
-)
+#http_archive(
+#    name = "io_bazel_rules_go",
+#    sha256 = "91585017debb61982f7054c9688857a2ad1fd823fc3f9cb05048b0025c47d023",
+#    urls = [
+#        "https://mirror.bazel.build/github.com/bazelbuild/rules_go/releases/download/v0.42.0/rules_go-v0.42.0.zip",
+#        "https://github.com/bazelbuild/rules_go/releases/download/v0.42.0/rules_go-v0.42.0.zip",
+#    ],
+#)
+#
+#load("@io_bazel_rules_go//go:deps.bzl", "go_register_toolchains", "go_rules_dependencies")
+#
+#go_rules_dependencies()
+#go_register_toolchains(version = "1.21.1")
+########################################################################################################################
 
-load("@io_bazel_rules_go//go:deps.bzl", "go_register_toolchains", "go_rules_dependencies")
-
-go_rules_dependencies()
-
-go_register_toolchains(version = "1.21.1")
+## RULES_RUST ##########################################################################################################
+#load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
+#
+# To find additional information on this release or newer ones visit:
+# https://github.com/bazelbuild/rules_rust/releases
+#http_archive(
+#    name = "rules_rust",
+#    sha256 = "48e715be2368d79bc174efdb12f34acfc89abd7ebfcbffbc02568fcb9ad91536",
+#    urls = ["https://github.com/bazelbuild/rules_rust/releases/download/0.30.0/rules_rust-v0.30.0.tar.gz"],
+#)
+#
+#load("@rules_rust//rust:repositories.bzl", "rules_rust_dependencies", "rust_register_toolchains")
+#
+#rules_rust_dependencies()
+#
+#rust_register_toolchains(
+#    edition = "2021",
+#    versions = [
+#        "1.75.0",
+#    ],
+#)
 ########################################################################################################################
 
 ## GAZELLE #############################################################################################################
-http_archive(
-    name = "bazel_gazelle",
-    sha256 = "b7387f72efb59f876e4daae42f1d3912d0d45563eac7cb23d1de0b094ab588cf",
-    urls = [
-        "https://mirror.bazel.build/github.com/bazelbuild/bazel-gazelle/releases/download/v0.34.0/bazel-gazelle-v0.34.0.tar.gz",
-        "https://github.com/bazelbuild/bazel-gazelle/releases/download/v0.34.0/bazel-gazelle-v0.34.0.tar.gz",
-    ],
-)
-
-load("@bazel_gazelle//:deps.bzl", "gazelle_dependencies")
-
-gazelle_dependencies()
+#http_archive(
+#    name = "bazel_gazelle",
+#    sha256 = "b7387f72efb59f876e4daae42f1d3912d0d45563eac7cb23d1de0b094ab588cf",
+#    urls = [
+#        "https://mirror.bazel.build/github.com/bazelbuild/bazel-gazelle/releases/download/v0.34.0/bazel-gazelle-v0.34.0.tar.gz",
+#        "https://github.com/bazelbuild/bazel-gazelle/releases/download/v0.34.0/bazel-gazelle-v0.34.0.tar.gz",
+#    ],
+#)
+#
+#load("@bazel_gazelle//:deps.bzl", "gazelle_dependencies")
+#
+#gazelle_dependencies()
 ########################################################################################################################
 
 ## PROTOBUF ############################################################################################################
-http_archive(
-    name = "com_google_protobuf",
-    sha256 = "616bb3536ac1fff3fb1a141450fa28b875e985712170ea7f1bfe5e5fc41e2cd8",
-    strip_prefix = "protobuf-24.4",
-    urls = ["https://github.com/protocolbuffers/protobuf/archive/v24.4.tar.gz"],
-)
-
-load("@com_google_protobuf//:protobuf_deps.bzl", "protobuf_deps")
-
-protobuf_deps()
+#http_archive(
+#    name = "com_google_protobuf",
+#    sha256 = "616bb3536ac1fff3fb1a141450fa28b875e985712170ea7f1bfe5e5fc41e2cd8",
+#    strip_prefix = "protobuf-24.4",
+#    urls = ["https://github.com/protocolbuffers/protobuf/archive/v24.4.tar.gz"],
+#)
+#
+#load("@com_google_protobuf//:protobuf_deps.bzl", "protobuf_deps")
+#
+#protobuf_deps()
 ########################################################################################################################
 
 ### RULES_PROTO ########################################################################################################
-http_archive(
-    name = "rules_proto",
-    sha256 = "903af49528dc37ad2adbb744b317da520f133bc1cbbecbdd2a6c546c9ead080b",
-    strip_prefix = "rules_proto-6.0.0-rc0",
-    url = "https://github.com/bazelbuild/rules_proto/releases/download/6.0.0-rc0/rules_proto-6.0.0-rc0.tar.gz",
-)
-
-load("@rules_proto//proto:repositories.bzl", "rules_proto_dependencies", "rules_proto_toolchains")
-load("//:deps.bzl", "go_dependencies")
-
-# gazelle:repository_macro deps.bzl%go_dependencies
-go_dependencies()
-
-rules_proto_dependencies()
-
-rules_proto_toolchains()
+#http_archive(
+#    name = "rules_proto",
+#    sha256 = "903af49528dc37ad2adbb744b317da520f133bc1cbbecbdd2a6c546c9ead080b",
+#    strip_prefix = "rules_proto-6.0.0-rc0",
+#    url = "https://github.com/bazelbuild/rules_proto/releases/download/6.0.0-rc0/rules_proto-6.0.0-rc0.tar.gz",
+#)
+#
+#load("@rules_proto//proto:repositories.bzl", "rules_proto_dependencies", "rules_proto_toolchains")
+#load("//:deps.bzl", "go_dependencies")
+#
+## gazelle:repository_macro deps.bzl%go_dependencies
+#go_dependencies()
+#
+#rules_proto_dependencies()
+#
+#rules_proto_toolchains()
 ########################################################################################################################
 
 ## GO_GOOGLEAPIS #######################################################################################################
