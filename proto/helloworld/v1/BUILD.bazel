@@ -22,7 +22,7 @@ proto_library(
 go_proto_library(
     name = "helloworld_v1_go_proto",
     compilers = ["@io_bazel_rules_go//proto:go_grpc"],
-    importpath = "github.com/abitofhelp/bazel/easyproto2/proto/helloworld/v1",
+    importpath = "github.com/abitofhelp/bazel/bazel_grpc_pbuf_go/proto/helloworld/v1",
     proto = ":helloworld_v1_proto",
     deps = [
         "@go_googleapis//google/api:annotations_go_proto",
@@ -34,7 +34,7 @@ go_proto_library(
 go_library(
     name = "helloworld_v1_go",
     embed = [":helloworld_v1_go_proto"],
-    importpath = "github.com/abitofhelp/bazel/easyproto2/proto/helloworld/v1",
+    importpath = "github.com/abitofhelp/bazel/bazel_grpc_pbuf_go/proto/helloworld/v1",
 )
 
 ########################################################################################################################

@@ -3,8 +3,8 @@ package main
 import (
 	"context"
 	"fmt"
-	"github.com/abitofhelp/bazel/easyproto2/cmd"
-	v1 "github.com/abitofhelp/bazel/easyproto2/proto/helloworld/v1"
+	"github.com/abitofhelp/bazel/bazel_grpc_pbuf_go/cmd"
+	v1 "github.com/abitofhelp/bazel/bazel_grpc_pbuf_go/proto/helloworld/v1"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
 	"google.golang.org/protobuf/types/known/timestamppb"

@@ -1,6 +1,6 @@
 # Makefile
 
-PROJECT_DIR=$GOPATH/src/github.com/bazel/easyproto2
+PROJECT_DIR=$GOPATH/src/github.com/bazel/bazel_grpc_pbuf_go
 PROTO_DIR=$(PROJECT_DIR)/proto
 BZCMD=bazel
 

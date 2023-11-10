@@ -1,4 +1,4 @@
-module github.com/abitofhelp/bazel/easyproto2
+module github.com/abitofhelp/bazel/bazel_grpc_pbuf_go
 
 go 1.21
 
