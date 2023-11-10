@@ -6,17 +6,17 @@ BZCMD=bazel
 
 .PHONY:build_all build_client build_proto build_server clean generate_repos go_mod_tidy list run_client run_server test update_repos
 
-build_all: build_proto build_server run_client
-	echo "DONE"
+build_all:
+	@$(BZCMD) build --verbose_failures //...
 
 build_client:
-	@$(BZCMD) build --sandbox_debug --verbose_failures //cmd/client:client
+	@$(BZCMD) build --verbose_failures //cmd/client:client
 
 build_proto:
-	@$(BZCMD) build //proto/helloworld/v1:helloworld_v1_go
+	@$(BZCMD) build --verbose_failures //proto/helloworld/v1:helloworld_v1_go
 
 build_server:
-	@$(BZCMD) build --sandbox_debug --verbose_failures //cmd/server:server
+	@$(BZCMD) build --verbose_failures //cmd/server:server
 
 clean:
 	@$(BZCMD) clean --expunge --async
