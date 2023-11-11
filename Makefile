@@ -51,7 +51,7 @@ run_server:
 test:
 	$(BZLCMD) test --test_output=all //...
 
-update_repos: go_mod_verify go_mod_tidy
+update_repos: go_mod_verify #go_mod_tidy
 	# Update go modules (source of truth!).
 #	GO111MODULE=on go mod verify
 #	GO111MODULE=on go mod tidy
