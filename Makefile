@@ -5,7 +5,7 @@ PROTO_DIR=$(PROJECT_DIR)/proto
 BZLCMD=bazel
 BAZEL_BUILD_OPTS:=--verbose_failures --sandbox_debug
 
-.PHONY:build_all build_client build_proto build_server clean generate_repos go_mod_tidy list run_client run_server test update_repos
+.PHONY:build_all build_client build_proto build_server clean gazelle_update_repos generate_repos go_mod_tidy list run_client run_server test update_repos
 
 build_all:
 	$(BZLCMD) build $(BAZEL_BUILD_OPTS) //...
