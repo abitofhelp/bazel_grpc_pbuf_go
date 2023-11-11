@@ -28,7 +28,7 @@ generate_repos:
 
 go_mod_tidy:
 	# Assumes GO111MODULE=on
-	$(BZLCMD) run @io_bazel_rules_go//go -- mod tidy
+	#$(BZLCMD) run @io_bazel_rules_go//go -- mod tidy
 
 go_mod_vendor:
 	rm -rf vendor
@@ -51,17 +51,10 @@ run_server:
 test:
 	$(BZLCMD) test --test_output=all //...
 
-update_repos: go_mod_verify #go_mod_tidy
-	# Update go modules (source of truth!).
-#	GO111MODULE=on go mod verify
-#	GO111MODULE=on go mod tidy
-
+gazelle_update_repos:
 	# Import repositories from go.mod and update Bazel's macro and rules.
 	$(BZLCMD) run $(BAZEL_BUILD_OPTS) //:gazelle -- update-repos -from_file=go.mod -to_macro=repositories.bzl%go_repositories
 
-	# Update the vendor folder so linting won't complain.
-#	GO111MODULE=on go mod vendor -v
-	#go_mod_vendor
-	#rm -rf vendor
+update_repos: go_mod_verify go_mod_tidy gazelle_update_repos go_mod_vendor
 
 

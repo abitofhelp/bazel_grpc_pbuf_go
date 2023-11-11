@@ -30,8 +30,16 @@ http_archive(
 )
 
 load("@bazel_gazelle//:deps.bzl", "gazelle_dependencies")
-
 gazelle_dependencies()
+
+load("//:deps.bzl", "go_dependencies")
+# gazelle:repository_macro deps.bzl%go_dependencies
+go_dependencies()
+
+load("//:repositories.bzl", "go_repositories")
+# gazelle:repository_macro repositories.bzl%go_repositories
+go_repositories()
+
 ########################################################################################################################
 
 ## PROTOBUF ############################################################################################################
@@ -56,14 +64,6 @@ http_archive(
 )
 
 load("@rules_proto//proto:repositories.bzl", "rules_proto_dependencies", "rules_proto_toolchains")
-load("//:deps.bzl", "go_dependencies")
-load("//:repositories.bzl", "go_repositories")
-
-# gazelle:repository_macro repositories.bzl%go_repositories
-go_repositories()
-
-# gazelle:repository_macro deps.bzl%go_dependencies
-go_dependencies()
 
 rules_proto_dependencies()
 
