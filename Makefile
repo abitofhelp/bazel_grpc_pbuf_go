@@ -22,6 +22,7 @@ build_server:
 clean:
 	$(BZLCMD) clean --expunge --async
 
+generate_repos:
 # This will generate new BUILD.bazel files for your project. You can run the same command in the future to update existing BUILD.bazel files to include new source files or options.
 	$(BZLCMD) run $(BAZEL_BUILD_OPTS) //:gazelle
 
@@ -60,7 +61,7 @@ update_repos: go_mod_verify go_mod_tidy
 
 	# Update the vendor folder so linting won't complain.
 #	GO111MODULE=on go mod vendor -v
-	go_mod_vendor
-	rm -rf vendor
+	#go_mod_vendor
+	#rm -rf vendor
 
 
